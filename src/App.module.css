@@ -1,0 +1,826 @@
+.header {
+  border-bottom: 1px solid var(--border);
+}
+.headerInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-block: 24px;
+}
+.desktopNav {
+  display: flex;
+  gap: 28px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.desktopNav a:hover {
+  color: var(--gold);
+}
+.headerCta {
+  min-height: 44px;
+  font-size: 12px;
+  padding: 10px 18px;
+}
+.menuButton {
+  display: none;
+  border-color: var(--border);
+}
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 20px 24px;
+  gap: 6px;
+  border-top: 1px solid var(--border);
+}
+.mobileNav a {
+  padding: 10px;
+}
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 70px;
+  align-items: center;
+  padding-block: 74px 82px;
+}
+.location {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: 1.1px;
+  color: var(--muted);
+}
+.location > span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+.hero h1 {
+  font-size: clamp(44px, 4.7vw, 64px);
+  line-height: 1.1;
+  letter-spacing: -2.5px;
+  margin-block: 26px;
+}
+.heroCopy > p {
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--muted);
+  max-width: 450px;
+}
+.heroActions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 30px;
+}
+.secondaryLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 12px;
+}
+.secondaryLink:hover {
+  color: var(--gold);
+}
+.heroNote {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 24px;
+}
+.heroNote svg {
+  color: var(--gold);
+}
+.heroVisual {
+  position: relative;
+  background: linear-gradient(145deg, #174669, #0b3051 60%);
+  border: 1px solid var(--border);
+  border-radius: 100px 8px 8px 8px;
+  padding: 28px 30px 30px;
+}
+.visualTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 28px;
+  gap: 14px;
+}
+.visualTop > span:first-child {
+  font-size: 8px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+}
+.smallMark {
+  font:
+    32px Georgia,
+    serif;
+  letter-spacing: -3px;
+}
+.smallMark span {
+  color: var(--gold);
+}
+.art {
+  position: relative;
+  height: 225px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.artHeart {
+  width: 150px;
+  height: 150px;
+  color: var(--gold);
+  fill: #e1b96c0c;
+  transform: rotate(-13deg);
+}
+.orbitOne,
+.orbitTwo {
+  position: absolute;
+  width: 255px;
+  height: 145px;
+  border: 1px solid #bdcbd638;
+  border-radius: 50%;
+  transform: rotate(-27deg);
+}
+.orbitTwo {
+  transform: rotate(36deg);
+}
+.artPlus {
+  position: absolute;
+  top: 35px;
+  right: 20%;
+  color: var(--gold);
+  font-size: 28px;
+  font-weight: 200;
+}
+.artDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--gold);
+  position: absolute;
+  bottom: 48px;
+  left: 18%;
+}
+.artCaption {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font:
+    italic 14px Georgia,
+    serif;
+  color: var(--muted);
+}
+.visualBottom {
+  border-top: 1px solid var(--border);
+  margin-top: 24px;
+  padding-top: 22px;
+}
+.visualBottom > span {
+  font-size: 8px;
+  letter-spacing: 1.6px;
+  color: var(--muted);
+}
+.visualBottom > p {
+  font-size: 25px;
+  letter-spacing: -0.5px;
+  line-height: 1.35;
+  margin-block: 12px 22px;
+}
+.visualTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 10px;
+}
+.visualTags > span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.visualTags svg {
+  color: var(--gold);
+}
+.locationBadge {
+  position: absolute;
+  right: -16px;
+  top: 43%;
+  padding: 10px 16px;
+  background: var(--cream);
+  color: var(--navy);
+  box-shadow: 0 10px 30px #0002;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+}
+.operatorStrip {
+  background: var(--deep);
+  border-block: 1px solid var(--border);
+}
+.operatorInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-block: 26px;
+}
+.operatorInner > span {
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 1.3px;
+}
+.operatorInner > p {
+  font-size: 19px;
+  font-weight: 550;
+  letter-spacing: -0.5px;
+}
+.operatorInner i {
+  color: var(--gold);
+  font-weight: 300;
+  margin-inline: 20px;
+  font-style: normal;
+}
+.operatorInner > small {
+  max-width: 180px;
+  color: var(--muted);
+  font-size: 10px;
+}
+.sectionIntro {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 48px;
+  margin-bottom: 36px;
+}
+.sectionIntro > p {
+  max-width: 310px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.profileCards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.profileCard {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  text-align: left;
+  padding: 34px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--cream);
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+.profileCard:hover {
+  background: var(--surface);
+  border-color: #e1b96c66;
+}
+.profileCard > svg {
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.cardNumber {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+}
+.profileCard h3 {
+  font-size: 27px;
+  letter-spacing: -0.8px;
+  margin-block: 16px;
+}
+.profileCard > p {
+  color: var(--muted);
+  font-size: 14px;
+  max-width: 350px;
+  margin-bottom: 30px;
+}
+.cardLink {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  width: 100%;
+  margin-top: auto;
+  font-size: 12px;
+}
+.cardLink svg {
+  color: var(--gold);
+}
+.processSection {
+  background: var(--cream);
+  color: var(--navy);
+}
+.processLayout {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 100px;
+}
+.processSection :global(.eyebrow) {
+  color: var(--gold-ink);
+}
+.processLayout em {
+  color: var(--gold-ink);
+}
+.processIntro {
+  color: var(--ink-muted);
+  font-size: 15px;
+  max-width: 310px;
+  margin-block: 24px;
+}
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.steps li {
+  display: flex;
+  align-items: start;
+  gap: 24px;
+  padding-block: 26px;
+  border-bottom: 1px solid var(--border-dark);
+}
+.steps li:first-child {
+  padding-top: 0;
+}
+.steps li > span {
+  font-size: 12px;
+  color: var(--gold-ink);
+  padding-top: 5px;
+}
+.steps h3 {
+  font-size: 21px;
+  letter-spacing: -0.5px;
+}
+.steps p {
+  color: var(--ink-muted);
+  margin-top: 10px;
+  font-size: 14px;
+}
+.about {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  align-items: center;
+  gap: 100px;
+}
+.identityCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 32px;
+  text-align: center;
+}
+.identityMark {
+  display: block;
+  font:
+    128px/1.5 Georgia,
+    serif;
+  letter-spacing: -15px;
+  margin-block: 8px 20px;
+}
+.identityMark span {
+  color: var(--gold);
+}
+.identityCard :global(.eyebrow) {
+  font-size: 8px;
+}
+.identityCard > p {
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+.identityCard > span:last-child {
+  color: var(--muted);
+  font-size: 8px;
+  letter-spacing: 1.5px;
+}
+.about > div > p:not(.identityCard p) {
+  color: var(--muted);
+  font-size: 15px;
+  margin-top: 22px;
+}
+.aboutLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 26px;
+}
+.aboutLinks a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--gold);
+  min-height: 44px;
+}
+.quoteSection {
+  background: var(--deep);
+  border-block: 1px solid var(--border);
+}
+.quoteLayout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+  gap: 100px;
+}
+.quoteCopy {
+  padding-top: 24px;
+}
+.quoteCopy h2 {
+  font-size: clamp(36px, 3.6vw, 48px);
+  line-height: 1.15;
+}
+.quoteCopy > p {
+  max-width: 355px;
+  color: var(--muted);
+  font-size: 15px;
+  margin-top: 26px;
+}
+.quoteCopy ul {
+  list-style: none;
+  margin: 30px 0;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+.quoteCopy li {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-size: 13px;
+}
+.quoteCopy li svg {
+  color: var(--gold);
+}
+.quoteContact {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-top: 26px;
+  border-top: 1px solid var(--border);
+  max-width: 350px;
+}
+.quoteContact > svg {
+  color: var(--gold);
+}
+.quoteContact small {
+  display: block;
+  font-size: 11px;
+  color: var(--muted);
+}
+.quoteContact a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 17px;
+}
+.quoteCopy .quoteFine {
+  font-size: 11px;
+  line-height: 1.8;
+}
+.faq {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 80px;
+}
+.faq > div > p {
+  color: var(--muted);
+  margin-top: 20px;
+  font-size: 15px;
+}
+.faqList details {
+  border-bottom: 1px solid var(--border);
+}
+.faqList summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  cursor: pointer;
+  padding-block: 21px;
+  font-size: 15px;
+  list-style: none;
+}
+.faqList summary::-webkit-details-marker {
+  display: none;
+}
+.faqList summary svg {
+  color: var(--gold);
+  transition: transform 0.2s;
+}
+.faqList details[open] summary svg {
+  transform: rotate(180deg);
+}
+.faqList details > p {
+  color: var(--muted);
+  font-size: 14px;
+  padding-bottom: 24px;
+}
+.footer {
+  background: var(--deep);
+  border-top: 1px solid var(--border);
+}
+.footerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 40px;
+}
+.footerTop > div {
+  text-align: right;
+  font-size: 12px;
+}
+.footerTop > div > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.footerTop > div > span {
+  display: block;
+  color: var(--muted);
+  margin-top: 5px;
+  font-size: 11px;
+}
+.footerBottom {
+  border-top: 1px solid var(--border);
+  padding-block: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  color: var(--muted);
+  font-size: 10px;
+}
+.footerBottom > p {
+  max-width: 560px;
+}
+.footerBottom > span {
+  white-space: nowrap;
+}
+@media (min-width: 701px) {
+  .mobileNav {
+    display: none;
+  }
+}
+@media (max-width: 1050px) {
+  .desktopNav {
+    gap: 18px;
+  }
+  .hero {
+    gap: 32px;
+  }
+  .heroActions {
+    flex-wrap: wrap;
+    gap: 18px;
+  }
+  .processLayout,
+  .about,
+  .quoteLayout {
+    gap: 48px;
+  }
+  .operatorInner {
+    flex-wrap: wrap;
+  }
+  .operatorInner > small {
+    max-width: none;
+  }
+  .location {
+    font-size: 8px;
+    letter-spacing: 0.6px;
+  }
+  .hero h1 {
+    font-size: 49px;
+  }
+  .footerBottom {
+    flex-wrap: wrap;
+  }
+}
+@media (max-width: 800px) {
+  .desktopNav {
+    display: none;
+  }
+  .heroVisual {
+    padding-inline: 22px;
+  }
+  .visualTop {
+    padding-left: 12px;
+  }
+  .visualBottom > p {
+    font-size: 22px;
+  }
+  .hero h1 {
+    font-size: 44px;
+  }
+  .locationBadge {
+    right: -8px;
+  }
+  .orbitOne,
+  .orbitTwo {
+    width: 205px;
+  }
+  .sectionIntro {
+    gap: 30px;
+  }
+  .profileCard {
+    padding: 26px;
+  }
+  .profileCard h3 {
+    font-size: 24px;
+  }
+}
+@media (max-width: 700px) {
+  .headerInner {
+    padding-block: 18px;
+  }
+  .headerCta {
+    display: none;
+  }
+  .menuButton {
+    display: inline-flex;
+  }
+  .hero {
+    grid-template-columns: 1fr;
+    padding-block: 40px 48px;
+    gap: 36px;
+  }
+  .hero h1 {
+    font-size: clamp(42px, 9.5vw, 64px);
+    letter-spacing: -1.8px;
+    margin-block: 24px;
+  }
+  .location {
+    font-size: 8px;
+    letter-spacing: 0.6px;
+  }
+  .heroCopy > p {
+    font-size: 16px;
+    max-width: 100%;
+  }
+  .heroActions {
+    gap: 20px;
+  }
+  .heroActions :global(.button) {
+    width: 100%;
+    justify-content: space-between;
+    font-size: 15px;
+  }
+  .heroNote {
+    font-size: 10px;
+  }
+  .heroVisual {
+    max-width: 480px;
+    width: 100%;
+    margin-inline: auto;
+    border-radius: 70px 8px 8px;
+    padding-inline: 26px;
+  }
+  .art {
+    height: 180px;
+  }
+  .artHeart {
+    height: 125px;
+    width: 125px;
+  }
+  .orbitOne,
+  .orbitTwo {
+    width: 245px;
+    height: 125px;
+  }
+  .visualTop {
+    padding-left: 16px;
+  }
+  .visualBottom {
+    margin-top: 20px;
+  }
+  .visualBottom > p {
+    font-size: 25px;
+  }
+  .locationBadge {
+    right: -7px;
+  }
+  .operatorInner {
+    justify-content: start;
+    gap: 12px;
+    padding-block: 24px;
+  }
+  .operatorInner > span {
+    width: 100%;
+  }
+  .operatorInner > p {
+    font-size: 18px;
+  }
+  .operatorInner i {
+    margin-inline: 10px;
+  }
+  .sectionIntro {
+    display: block;
+  }
+  .sectionIntro > p {
+    margin-top: 22px;
+    max-width: none;
+  }
+  .profileCards {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .profileCard {
+    padding: 28px;
+  }
+  .profileCard h3 {
+    font-size: 27px;
+  }
+  .profileCard > p {
+    max-width: none;
+  }
+  .profileCard > svg {
+    margin-bottom: 20px;
+  }
+  .processLayout,
+  .about,
+  .quoteLayout,
+  .faq {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .processIntro {
+    max-width: none;
+  }
+  .steps h3 {
+    font-size: 20px;
+  }
+  .steps li {
+    gap: 18px;
+  }
+  .about {
+    gap: 32px;
+  }
+  .identityCard {
+    max-width: 340px;
+    width: 100%;
+    margin-inline: auto;
+    padding: 24px;
+  }
+  .identityMark {
+    font-size: 96px;
+    margin-block: 0 12px;
+  }
+  .aboutLinks {
+    gap: 20px;
+  }
+  .quoteCopy {
+    padding-top: 0;
+  }
+  .quoteCopy h2 {
+    font-size: 40px;
+  }
+  .quoteCopy h2 br:nth-child(2) {
+    display: none;
+  }
+  .quoteCopy > p {
+    max-width: none;
+  }
+  .quoteCopy ul {
+    gap: 12px;
+    margin-block: 24px;
+  }
+  .quoteContact {
+    max-width: none;
+  }
+  .faq {
+    gap: 24px;
+  }
+  .faq h2 {
+    font-size: 36px;
+  }
+  .faqList summary {
+    font-size: 15px;
+  }
+  .footerTop {
+    align-items: start;
+    gap: 28px;
+    flex-direction: column;
+    padding-block: 32px;
+  }
+  .footerTop > div {
+    text-align: left;
+  }
+  .footerBottom {
+    flex-direction: column;
+    align-items: start;
+    gap: 18px;
+    font-size: 11px;
+  }
+}
