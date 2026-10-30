@@ -2,7 +2,18 @@
 
 Landing page de consultoria de planos de saúde em Fortaleza, criada para um uso comercial real e como projeto de portfólio de Lucas Bacelar.
 
+O problema é transformar uma visita em uma conversa útil, reduzindo a necessidade de perguntar novamente nome, cidade e idades no primeiro contato. O visitante preenche, revisa e decide compartilhar o pedido pelo WhatsApp. O formulário orienta o atendimento; consultar uma API de preços está fora do escopo.
+
 **Status:** implementação local. Instagram e WhatsApp de Fortaleza configurados. Ainda não publicado. A conferência visual em navegadores e a validação comercial dos produtos são etapas anteriores ao lançamento.
+
+## Guia para conhecer o projeto
+
+1. Execute a página e percorra **perfil → formulário → revisão → WhatsApp**. Não é necessário enviar a mensagem para conhecer o fluxo.
+2. Leia [o case](docs/CASE.md) para entender o problema e o contexto comercial.
+3. Veja [arquitetura e decisões](docs/ARCHITECTURE.md), incluindo as consequências de cada escolha.
+4. Consulte `src/features/quote/quote.ts` para as regras e `QuoteForm.test.tsx` para os testes de interação.
+
+O projeto demonstra um fluxo completo de frontend, com escopo deliberadamente limitado. Não há números de conversão, desempenho ou acessibilidade apresentados como resultados medidos.
 
 ## Executar
 
@@ -55,7 +66,11 @@ npm run test:watch  # Desenvolvimento dos testes
 npm run preview    # Servir dist/ depois do build
 ```
 
-Os testes verificam idade zero, limites, dados inválidos, perfil empresarial, codificação da mensagem, remoção de pessoas, invalidação do resumo editado e falha de clipboard. Não substituem testes visuais nem um envio real pelo WhatsApp.
+Os testes verificam idade zero, limites, dados inválidos, perfil empresarial, codificação da mensagem, remoção de pessoas, invalidação do resumo editado, preservação do preenchimento ao trocar o perfil, falha de clipboard e fechamento do menu por teclado. Não substituem testes visuais nem um envio real pelo WhatsApp.
+
+## Relatórios de acessos
+
+O envio diário às 21h está registrado como requisito futuro em [REPORTING.md](docs/REPORTING.md). Não há coleta nem envio ativo nesta versão. O endereço destinatário está em um arquivo local ignorado pelo Git e não entra no bundle do site. A integração depende da publicação, da fonte de métricas e do serviço de e-mail.
 
 ## Personalização
 

@@ -8,6 +8,12 @@ Lucas Bacelar inicia o atendimento como corretor de planos de saúde em Fortalez
 
 O protótipo estático validou conteúdo e paleta, mas tinha arquivos comprimidos e estilos sobrepostos. O formulário ainda não tinha uma estrutura adequada para evolução e testes.
 
+## Limite do produto
+
+A landing page apresenta o consultor e direciona o interessado ao contato. O formulário é mantido porque organiza esse primeiro contato; ele não consulta uma API de cotação nem precisa de uma para cumprir sua finalidade.
+
+A complexidade técnica se concentra na experiência: validação condicional para empresas, lista de pessoas, preservação do preenchimento e revisão explícita antes de compartilhar. A escolha da stack não altera esse limite de produto.
+
 ## Implementação
 
 - Componentes React com estilos locais e configuração pública separada.
@@ -30,6 +36,8 @@ Sem depoimentos inventados, selos de certificação ou métricas sem evidência.
 
 Os testes locais não comprovam aparência em todos os dispositivos nem entrega de mensagem no WhatsApp. Antes de publicar, revisar a experiência em desktop e celular, confirmar os produtos comercializados e os procedimentos de retenção de dados no atendimento.
 
-Depois da publicação, adicionar capturas reais, endereço público, link do repositório e resultados medidos. São Paulo, cotador e CRM são expansões futuras, não funcionalidades atuais.
+Depois da revisão visual, adicionar capturas reais. Depois da publicação, adicionar endereço público, link do repositório e resultados medidos. São Paulo é uma expansão comercial futura. O relatório diário de acessos é um requisito planejado, sem serviço ativo. API de cotação e CRM estão fora do escopo atual.
+
+Consulte [a arquitetura](ARCHITECTURE.md) para os motivos e as consequências das escolhas técnicas.
 
 Projeto com assistência de IA; a documentação registra a implementação sem atribuir resultados ainda não observados.

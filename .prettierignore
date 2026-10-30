@@ -3,3 +3,4 @@ dist
 coverage
 package-lock.json
 preview.html
+reporting-plan.local.json

@@ -1,12 +1,22 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { Brand } from './Brand';
 import styles from '../App.module.css';
 
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuButton = useRef<HTMLButtonElement>(null);
   return (
-    <header className={styles.header} id="inicio">
+    <header
+      className={styles.header}
+      id="inicio"
+      onKeyDown={(event) => {
+        if (event.key === 'Escape' && menuOpen) {
+          setMenuOpen(false);
+          menuButton.current?.focus();
+        }
+      }}
+    >
       <div className={`container ${styles.headerInner}`}>
         <Brand />
         <nav className={styles.desktopNav} aria-label="Navegação principal">
@@ -18,11 +28,12 @@ export function Header() {
           Vamos conversar <ArrowUpRight size={16} aria-hidden="true" />
         </a>
         <button
+          ref={menuButton}
           className={`icon-button ${styles.menuButton}`}
           type="button"
           aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
           aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
+          aria-controls={menuOpen ? 'mobile-menu' : undefined}
           onClick={() => setMenuOpen(!menuOpen)}
         >
           {menuOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}

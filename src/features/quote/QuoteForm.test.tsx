@@ -4,6 +4,22 @@ import { describe, expect, it, vi } from 'vitest';
 import { QuoteForm } from './QuoteForm';
 
 describe('fluxo do formulário', () => {
+  it('troca o perfil pelos cards sem apagar os dados já preenchidos', async () => {
+    const user = userEvent.setup();
+    const { rerender } = render(<QuoteForm selectedProfile="family" selectionKey={0} />);
+    await user.type(screen.getByLabelText('Como posso chamar você?'), 'Ana');
+    await user.type(screen.getByLabelText('Pessoa 1'), '32');
+    rerender(<QuoteForm selectedProfile="business" selectionKey={1} />);
+    expect(await screen.findByLabelText('Tipo de empresa')).toBeVisible();
+    expect(screen.getByLabelText('Como posso chamar você?')).toHaveValue('Ana');
+    expect(screen.getByLabelText('Pessoa 1')).toHaveValue('32');
+    await user.click(screen.getByRole('button', { name: /Preparar meu pedido/ }));
+    expect(await screen.findByText('Selecione o tipo de empresa.')).toBeVisible();
+    await user.selectOptions(screen.getByLabelText('Tipo de empresa'), 'mei');
+    await user.click(screen.getByRole('button', { name: /Preparar meu pedido/ }));
+    const link = await screen.findByRole('link', { name: /Continuar no WhatsApp/ });
+    expect(new URL(link.getAttribute('href')!).searchParams.get('text')).toContain('Empresa: MEI');
+  });
   it('bloqueia campos vazios, gera pedido e invalida o link após edição', async () => {
     const user = userEvent.setup();
     render(<QuoteForm selectedProfile="family" selectionKey={0} />);
