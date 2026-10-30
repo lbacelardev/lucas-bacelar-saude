@@ -6,7 +6,7 @@ export function Hero() {
     <section className={`container ${styles.hero}`} aria-labelledby="hero-title">
       <div className={styles.heroCopy}>
         <span className={styles.location}>
-          <span /> CONSULTORIA DE PLANOS DE SAÚDE · FORTALEZA
+          <span /> CONSULTORIA DE PLANOS DE SAÚDE · TODO O BRASIL
         </span>
         <h1 id="hero-title">
           Seu próximo plano
@@ -64,7 +64,7 @@ export function Hero() {
           </div>
         </div>
         <div className={styles.locationBadge}>
-          <MapPin size={15} aria-hidden="true" /> Fortaleza, CE
+          <MapPin size={15} aria-hidden="true" /> Atendimento nacional
         </div>
       </div>
     </section>

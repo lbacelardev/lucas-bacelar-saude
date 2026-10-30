@@ -1,10 +1,12 @@
 import { z } from 'zod';
 import { site } from '../../config/site';
+import { stateCodes } from '../../config/states';
 
 export const quoteSchema = z
   .object({
     name: z.string().trim().min(2, 'Informe seu nome.').max(60, 'Use até 60 caracteres.'),
     city: z.string().trim().min(2, 'Informe sua cidade.').max(80, 'Use até 80 caracteres.'),
+    state: z.enum([...stateCodes, '']).refine((value) => value !== '', 'Selecione seu estado.'),
     profile: z.enum(['family', 'business']),
     companyType: z.enum(['', 'mei', 'cnpj']),
     people: z
@@ -30,6 +32,7 @@ export const quoteSchema = z
   });
 
 export type QuoteValues = z.infer<typeof quoteSchema>;
+export type QuoteInput = z.input<typeof quoteSchema>;
 export type Profile = QuoteValues['profile'];
 
 export function buildQuoteMessage(values: QuoteValues): string {
@@ -37,7 +40,7 @@ export function buildQuoteMessage(values: QuoteValues): string {
   return [
     'Olá, Lucas! Gostaria de uma cotação de plano de saúde.',
     `Nome: ${data.name}`,
-    `Cidade: ${data.city} / ${site.state}`,
+    `Cidade: ${data.city} / ${data.state}`,
     `Perfil: ${data.profile === 'business' ? 'Empresa / MEI' : 'Pessoa / família'}`,
     ...(data.profile === 'business'
       ? [`Empresa: ${data.companyType === 'mei' ? 'MEI' : 'Outra empresa com CNPJ'}`]

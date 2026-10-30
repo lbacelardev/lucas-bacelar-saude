@@ -4,8 +4,8 @@ export const faqs = [
     'Você pode solicitar orientação sobre opções Hapvida e NotreDame Intermédica para seu perfil. A disponibilidade do produto e os critérios de contratação são confirmados no atendimento.',
   ],
   [
-    'O atendimento é em Fortaleza?',
-    'Sim. O atendimento inicial é voltado a Fortaleza. Se você está em outra cidade do Ceará, informe a cidade no pedido para confirmar a disponibilidade.',
+    'Vocês atendem minha região?',
+    'O atendimento é para todo o Brasil. Informe cidade e estado para confirmar os produtos e a rede disponíveis na sua região. Atendimento nacional não significa que todos os planos estejam disponíveis em todas as cidades.',
   ],
   [
     'Vou receber um preço na hora?',

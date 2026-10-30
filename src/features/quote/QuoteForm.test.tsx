@@ -7,6 +7,8 @@ describe('fluxo do formulário', () => {
   it('troca o perfil pelos cards sem apagar os dados já preenchidos', async () => {
     const user = userEvent.setup();
     const { rerender } = render(<QuoteForm selectedProfile="family" selectionKey={0} />);
+    await user.selectOptions(screen.getByLabelText('Seu estado'), 'CE');
+    await user.type(screen.getByLabelText('Sua cidade'), 'Fortaleza');
     await user.type(screen.getByLabelText('Como posso chamar você?'), 'Ana');
     await user.type(screen.getByLabelText('Pessoa 1'), '32');
     rerender(<QuoteForm selectedProfile="business" selectionKey={1} />);
@@ -23,6 +25,8 @@ describe('fluxo do formulário', () => {
   it('bloqueia campos vazios, gera pedido e invalida o link após edição', async () => {
     const user = userEvent.setup();
     render(<QuoteForm selectedProfile="family" selectionKey={0} />);
+    await user.selectOptions(screen.getByLabelText('Seu estado'), 'CE');
+    await user.type(screen.getByLabelText('Sua cidade'), 'Fortaleza');
     await user.click(screen.getByRole('button', { name: /Preparar meu pedido/ }));
     expect(await screen.findByText('Informe seu nome.')).toBeVisible();
     expect(screen.queryByRole('link', { name: /Continuar no WhatsApp/ })).not.toBeInTheDocument();
@@ -39,6 +43,8 @@ describe('fluxo do formulário', () => {
   it('preserva ao menos uma pessoa e mantém as idades certas ao remover outra', async () => {
     const user = userEvent.setup();
     render(<QuoteForm selectedProfile="family" selectionKey={0} />);
+    await user.selectOptions(screen.getByLabelText('Seu estado'), 'CE');
+    await user.type(screen.getByLabelText('Sua cidade'), 'Fortaleza');
     expect(screen.getByRole('button', { name: 'Remover pessoa 1' })).toBeDisabled();
     await user.type(screen.getByLabelText('Pessoa 1'), '40');
     await user.click(screen.getByRole('button', { name: /Adicionar pessoa/ }));
@@ -51,11 +57,15 @@ describe('fluxo do formulário', () => {
     const user = userEvent.setup();
     vi.spyOn(navigator.clipboard, 'writeText').mockRejectedValue(new Error('Bloqueado'));
     render(<QuoteForm selectedProfile="business" selectionKey={0} />);
+    await user.selectOptions(screen.getByLabelText('Seu estado'), 'CE');
+    await user.type(screen.getByLabelText('Sua cidade'), 'Fortaleza');
     await user.selectOptions(screen.getByLabelText('Tipo de empresa'), 'mei');
     await user.type(screen.getByLabelText('Como posso chamar você?'), 'Ana');
     await user.type(screen.getByLabelText('Pessoa 1'), '32');
     await user.click(screen.getByRole('button', { name: /Preparar meu pedido/ }));
     await user.click(await screen.findByRole('button', { name: /Copiar pedido/ }));
-    await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('copie manualmente'));
+    await waitFor(() =>
+      expect(screen.getByText(/Não foi possível copiar\./)).toHaveTextContent('copie manualmente'),
+    );
   });
 });

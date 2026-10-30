@@ -1,10 +1,10 @@
 # Lucas Bacelar Saúde
 
-Landing page de consultoria de planos de saúde em Fortaleza, criada para um uso comercial real e como projeto de portfólio de Lucas Bacelar.
+Landing page de consultoria de planos de saúde em todo o Brasil, criada para um uso comercial real e como projeto de portfólio de Lucas Bacelar.
 
 O problema é transformar uma visita em uma conversa útil, reduzindo a necessidade de perguntar novamente nome, cidade e idades no primeiro contato. O visitante preenche, revisa e decide compartilhar o pedido pelo WhatsApp. O formulário orienta o atendimento; consultar uma API de preços está fora do escopo.
 
-**Status:** implementação local. Instagram e WhatsApp de Fortaleza configurados. Ainda não publicado. A conferência visual em navegadores e a validação comercial dos produtos são etapas anteriores ao lançamento.
+**Status:** implementação local. Instagram e WhatsApp comercial configurados. Ainda não publicado. A conferência visual em navegadores e a validação comercial dos produtos são etapas anteriores ao lançamento.
 
 ## Guia para conhecer o projeto
 
@@ -56,7 +56,7 @@ src/
   App.module.css      # Layout e responsividade da página
 ```
 
-Identidade: azul profundo `#06274B`, creme `#FFF3DE` e dourado `#E1B96C`. Sem fontes, scripts de rastreamento ou imagens remotas. A arte do topo usa CSS e ícone vetorial; o monograma de apresentação é tipográfico, sem foto fictícia do consultor.
+Identidade: azul profundo `#06274B`, creme `#FFF3DE` e dourado `#E1B96C`. Sem fontes, scripts de rastreamento ou imagens remotas. A consulta opcional de localização usa um serviço externo. A arte do topo usa CSS e ícone vetorial; o monograma de apresentação é tipográfico, sem foto fictícia do consultor.
 
 ## Qualidade
 
@@ -74,7 +74,15 @@ O envio diário às 21h está registrado como requisito futuro em [REPORTING.md]
 
 ## Personalização
 
-Edite `src/config/site.ts` para alterar os contatos públicos. Nunca adicione credenciais a esse arquivo. O atendimento inicial é Fortaleza; São Paulo fica para uma futura expansão. Confirme produtos, rede e condições antes de divulgar o site.
+### Localização opcional
+
+“Usar minha localização” solicita permissão ao navegador e consulta cidade e UF no BigDataCloud. Não há consulta automática ao abrir a página, nem busca por IP se a permissão for negada. O preenchimento pelo navegador continua disponível com `autocomplete`. Os campos ficam editáveis, e uma consulta atrasada não sobrescreve edições manuais. Sem localização, não presumimos Fortaleza ou qualquer outra cidade.
+
+A localização exige suporte e permissão do navegador; use `localhost` no desenvolvimento ou HTTPS em produção. Coordenadas são enviadas ao serviço externo somente ao acionar a funcionalidade e não são armazenadas nem incluídas no WhatsApp. A fonte é a [API client-side do BigDataCloud](https://www.bigdatacloud.com/docs/article/why-is-reverse-geocoding-api-free). O aviso de privacidade descreve essa consulta.
+
+Os testes de localização usam respostas simuladas, sem obter nem enviar coordenadas reais. O uso em um dispositivo real ainda precisa ser conferido na revisão de navegador.
+
+Edite `src/config/site.ts` para alterar os contatos públicos. Nunca adicione credenciais a esse arquivo. O atendimento é nacional. O formulário recebe cidade e UF e oferece preenchimento opcional por localização autorizada. Confirme produtos, rede e condições antes de divulgar o site.
 
 ## GitHub e publicação
 

@@ -25,6 +25,7 @@ flowchart LR
 - `components/` contém marca, navegação, rodapé e privacidade.
 - `features/quote/quote.ts` concentra schema, tipos e funções de mensagem. A validação independe de React e é exercitada em testes unitários.
 - `features/quote/QuoteForm.tsx` controla interação e campos dinâmicos, delegando as regras ao schema.
+- `features/quote/location.ts` isola a consulta opcional de coordenadas atuais no BigDataCloud e valida país, cidade e UF antes de preencher. Permissão negada, serviço indisponível ou resposta inválida mantêm a entrada manual.
 - `config/site.ts` reúne apenas informações públicas do atendimento.
 - `styles/global.css` contém tokens e elementos compartilhados; CSS Modules evita colisões entre componentes. `App.module.css` compartilha o layout entre as seções.
 
@@ -50,5 +51,7 @@ Os testes cobrem regras de idade, perfil empresarial, codificação do destinat�
 Testes em jsdom não medem layout, contraste real, foco nativo do diálogo em todos os navegadores ou entrega no WhatsApp. Essas verificações continuam na revisão de navegador. Não há pontuação de Lighthouse ou métricas de conversão declaradas sem medição.
 
 ## Evolução prevista
+
+O atendimento agora é nacional. A localização é apenas uma sugestão editável, não uma confirmação da disponibilidade de um produto. O formulário não assume uma cidade padrão e preserva o que foi editado enquanto uma consulta está pendente.
 
 Depois da revisão do projeto, publicação estática e configuração do domínio. A medição de acessos e o envio diário por e-mail ficam em uma etapa separada, documentada em [REPORTING.md](REPORTING.md). Um serviço de cotação não faz parte do escopo atual nem é requisito para o relatório de acessos.

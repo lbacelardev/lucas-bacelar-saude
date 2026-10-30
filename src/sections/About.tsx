@@ -16,7 +16,7 @@ export function About() {
         </span>
         <span className="eyebrow">PRAZER, SEU CONSULTOR.</span>
         <p>Lucas Bacelar</p>
-        <span>PLANOS DE SAÚDE · FORTALEZA</span>
+        <span>PLANOS DE SAÚDE · TODO O BRASIL</span>
       </div>
       <div>
         <span className="eyebrow">ATENDIMENTO DE PESSOA PARA PESSOA</span>
@@ -30,7 +30,7 @@ export function About() {
           conferir as condições que fazem diferença na sua escolha.
         </p>
         <p>
-          O atendimento começa por Fortaleza, com orientação para pessoas, famílias e empresas. Você
+          O atendimento é para todo o Brasil, com orientação para pessoas, famílias e empresas. Você
           fala diretamente comigo, do primeiro contato às dúvidas sobre a proposta.
         </p>
         <div className={styles.aboutLinks}>

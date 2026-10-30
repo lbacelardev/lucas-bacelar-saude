@@ -65,6 +65,15 @@
   outline: 3px solid var(--gold-ink);
   outline-offset: 3px;
 }
+.location {
+  margin-bottom: 24px;
+}
+.location .add {
+  margin-top: 0;
+}
+.location .help + .help {
+  margin-top: 8px;
+}
 .field {
   margin-bottom: 24px;
 }

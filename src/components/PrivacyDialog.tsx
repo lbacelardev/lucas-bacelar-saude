@@ -22,14 +22,30 @@ export function PrivacyDialog() {
           </button>
         </div>
         <p>
-          O formulário usa nome, cidade, perfil e idades para montar uma solicitação de cotação no
-          seu navegador. Não solicitamos CPF, documentos ou dados de saúde.
+          O formulário usa nome, cidade, estado, perfil e idades para montar uma solicitação de
+          cotação no seu navegador. Não solicitamos CPF, documentos ou dados de saúde.
         </p>
         <h3>Você decide quando compartilhar</h3>
         <p>
           O pedido não é enviado automaticamente. Ao copiar, o texto vai para a área de
           transferência do dispositivo. Ao abrir o WhatsApp, o texto é incluído no endereço de
           abertura da conversa e compartilhado com o serviço. Você confirma o envio no aplicativo.
+        </p>
+        <h3>Preenchimento por localização</h3>
+        <p>
+          Ao escolher “Usar minha localização”, você permite que o navegador obtenha sua posição. As
+          coordenadas são enviadas ao BigDataCloud, que também recebe seu endereço IP, para sugerir
+          cidade e estado. Esse serviço usa os sinais de localização e rede para melhorar sua base
+          de geolocalização. A consulta é opcional e segue a{' '}
+          <a
+            href="https://www.bigdatacloud.com/privacy-policy"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            política de privacidade do BigDataCloud
+          </a>
+          . Você pode preencher os campos manualmente. Não armazenamos coordenadas nem as incluímos
+          no pedido ao consultor.
         </p>
         <h3>Armazenamento e serviços externos</h3>
         <p>

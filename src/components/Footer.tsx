@@ -13,7 +13,7 @@ export function Footer() {
           <a href={site.instagram} target="_blank" rel="noopener noreferrer">
             {site.instagramHandle} <ArrowUpRight size={14} aria-hidden="true" />
           </a>
-          <span>Atendimento em Fortaleza, Ceará.</span>
+          <span>Atendimento em todo o Brasil.</span>
         </div>
       </div>
       <div className={`container ${styles.footerBottom}`}>

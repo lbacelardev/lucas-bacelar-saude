@@ -5,12 +5,20 @@ import type { QuoteValues } from './quote';
 const valid: QuoteValues = {
   name: '  Ana  ',
   city: 'Fortaleza',
+  state: 'CE',
   profile: 'family',
   companyType: '',
   people: [{ age: '0' }, { age: '1' }, { age: '120' }],
 };
 
 describe('regras da solicitação', () => {
+  it('usa a UF do visitante e rejeita estado vazio', () => {
+    expect(buildQuoteMessage({ ...valid, city: 'São Paulo', state: 'SP' })).toContain(
+      'São Paulo / SP',
+    );
+    expect(quoteSchema.safeParse({ ...valid, state: '' }).success).toBe(false);
+    expect(quoteSchema.safeParse({ ...valid, state: 'XX' }).success).toBe(false);
+  });
   it('aceita recém-nascidos e os limites de idade', () => {
     expect(quoteSchema.parse(valid).name).toBe('Ana');
     expect(buildQuoteMessage(valid)).toContain('Idades: 0 anos, 1 ano, 120 anos');

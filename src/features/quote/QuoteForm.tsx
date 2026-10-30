@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { useFieldArray, useForm, useWatch } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ArrowUpRight, Check, Copy, Plus, Trash2 } from 'lucide-react';
+import { ArrowUpRight, Check, Copy, MapPin, Plus, Trash2 } from 'lucide-react';
+import { stateCodes, states } from '../../config/states';
+import { detectLocation } from './location';
 import { buildQuoteMessage, quoteSchema, whatsappUrl } from './quote';
-import type { Profile, QuoteValues } from './quote';
+import type { Profile, QuoteInput, QuoteValues } from './quote';
 import styles from './QuoteForm.module.css';
 
 type Props = { selectedProfile: Profile; selectionKey: number };
@@ -14,12 +16,14 @@ export function QuoteForm({ selectedProfile, selectionKey }: Props) {
     control,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
-  } = useForm<QuoteValues>({
+  } = useForm<QuoteInput, unknown, QuoteValues>({
     resolver: zodResolver(quoteSchema),
     defaultValues: {
       name: '',
-      city: 'Fortaleza',
+      city: '',
+      state: '',
       profile: selectedProfile,
       companyType: '',
       people: [{ age: '' }],
@@ -29,12 +33,51 @@ export function QuoteForm({ selectedProfile, selectionKey }: Props) {
   const values = useWatch({ control });
   const [result, setResult] = useState<{ message: string; snapshot: string } | null>(null);
   const [copyStatus, setCopyStatus] = useState('');
+  const [locating, setLocating] = useState(false);
+  const [locationStatus, setLocationStatus] = useState('');
+  const locationRequest = useRef<AbortController | null>(null);
   const resultHeading = useRef<HTMLHeadingElement>(null);
   const resultIsCurrent = result?.snapshot === JSON.stringify(values);
 
   useEffect(() => {
     setValue('profile', selectedProfile);
   }, [selectedProfile, selectionKey, setValue]);
+
+  useEffect(() => () => locationRequest.current?.abort(), []);
+
+  async function fillLocation() {
+    locationRequest.current?.abort();
+    const request = new AbortController();
+    locationRequest.current = request;
+    const previous = { city: getValues('city'), state: getValues('state') };
+    setLocating(true);
+    setLocationStatus('Consultando sua localização…');
+    try {
+      const location = await detectLocation(request.signal);
+      if (request.signal.aborted) return;
+      if (getValues('city') !== previous.city || getValues('state') !== previous.state) {
+        setLocationStatus(
+          'Você editou os campos durante a consulta. Mantivemos o que você informou.',
+        );
+        return;
+      }
+      setValue('state', location.state, { shouldValidate: true, shouldDirty: true });
+      setValue('city', location.city, { shouldValidate: true, shouldDirty: true });
+      setLocationStatus(
+        `Localização preenchida: ${location.city} / ${location.state}. Confira e ajuste se necessário.`,
+      );
+    } catch (error) {
+      if (!request.signal.aborted) {
+        setLocationStatus(
+          error instanceof Error
+            ? error.message
+            : 'Não foi possível localizar. Preencha os campos.',
+        );
+      }
+    } finally {
+      if (!request.signal.aborted) setLocating(false);
+    }
+  }
 
   function onSubmit(data: QuoteValues) {
     setResult({ message: buildQuoteMessage(data), snapshot: JSON.stringify(values) });
@@ -112,18 +155,60 @@ export function QuoteForm({ selectedProfile, selectionKey }: Props) {
           </p>
         )}
       </div>
+      <div className={styles.location}>
+        <button
+          type="button"
+          className={styles.add}
+          disabled={locating}
+          onClick={() => void fillLocation()}
+          aria-describedby="location-help"
+        >
+          <MapPin size={16} aria-hidden="true" />{' '}
+          {locating ? 'Localizando…' : 'Usar minha localização'}
+        </button>
+        <p id="location-help" className={styles.help}>
+          Opcional. Ao usar, o navegador pede sua permissão e suas coordenadas são consultadas no
+          BigDataCloud para sugerir cidade e estado.
+        </p>
+        <p className={styles.help} role="status">
+          {locationStatus}
+        </p>
+      </div>
       <div className={styles.field}>
-        <label htmlFor="city">Sua cidade no Ceará</label>
+        <label htmlFor="state">Seu estado</label>
+        <select
+          id="state"
+          {...register('state')}
+          autoComplete="address-level1"
+          aria-invalid={!!errors.state}
+          aria-describedby={errors.state ? 'state-error' : undefined}
+        >
+          <option value="">Selecione seu estado</option>
+          {stateCodes.map((code) => (
+            <option key={code} value={code}>
+              {states[code]} ({code})
+            </option>
+          ))}
+        </select>
+        {errors.state && (
+          <p className={styles.error} id="state-error">
+            {errors.state.message}
+          </p>
+        )}
+      </div>
+      <div className={styles.field}>
+        <label htmlFor="city">Sua cidade</label>
         <input
           id="city"
           {...register('city')}
           autoComplete="address-level2"
+          placeholder="Ex.: Fortaleza, São Paulo, Recife"
           maxLength={80}
           aria-invalid={!!errors.city}
           aria-describedby="city-note city-error"
         />
         <p className={styles.help} id="city-note">
-          Atendimento inicial em Fortaleza. Outras cidades dependem de confirmação.
+          Atendimento em todo o Brasil. Os planos disponíveis serão confirmados para sua cidade.
         </p>
         <p className={styles.error} id="city-error">
           {errors.city?.message}

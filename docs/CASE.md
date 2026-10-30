@@ -2,7 +2,7 @@
 
 ## Contexto
 
-Lucas Bacelar inicia o atendimento como corretor de planos de saúde em Fortaleza e pretende expandir para São Paulo posteriormente. O site precisa apresentar seu trabalho, organizar o primeiro contato e funcionar como projeto de portfólio.
+Lucas Bacelar oferece atendimento como corretor de planos de saúde para todo o Brasil, com disponibilidade de produtos confirmada por cidade e UF. O site precisa apresentar seu trabalho, organizar o primeiro contato e funcionar como projeto de portfólio.
 
 ## Problema da primeira versão
 
@@ -36,7 +36,7 @@ Sem depoimentos inventados, selos de certificação ou métricas sem evidência.
 
 Os testes locais não comprovam aparência em todos os dispositivos nem entrega de mensagem no WhatsApp. Antes de publicar, revisar a experiência em desktop e celular, confirmar os produtos comercializados e os procedimentos de retenção de dados no atendimento.
 
-Depois da revisão visual, adicionar capturas reais. Depois da publicação, adicionar endereço público, link do repositório e resultados medidos. São Paulo é uma expansão comercial futura. O relatório diário de acessos é um requisito planejado, sem serviço ativo. API de cotação e CRM estão fora do escopo atual.
+Depois da revisão visual, adicionar capturas reais. Depois da publicação, adicionar endereço público, link do repositório e resultados medidos. O formulário contempla todas as UFs e preenchimento opcional de localização. O relatório diário de acessos é um requisito planejado, sem serviço ativo. API de cotação e CRM estão fora do escopo atual.
 
 Consulte [a arquitetura](ARCHITECTURE.md) para os motivos e as consequências das escolhas técnicas.
 
