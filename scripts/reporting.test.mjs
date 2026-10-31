@@ -10,6 +10,38 @@ test('período respeita São Paulo na virada UTC e na virada do ano', () => {
 
 const headers = ['totalUsers', 'sessions', 'screenPageViews'].map((name) => ({ name }));
 const response = (data) => async () => ({ ok: true, json: async () => data });
+test('relatório GA4 identificado sem colunas informa indisponibilidade, nunca zero', async () => {
+  const totals = await readMetrics(
+    '123',
+    'token',
+    '2026-10-29',
+    response({
+      kind: 'analyticsData#runReport',
+      metadata: { timeZone: 'America/Sao_Paulo', emptyReason: 'No data' },
+    }),
+  );
+  assert.deepEqual(totals, [null, null, null]);
+  const email = emailBody('2026-10-29', totals, true);
+  assert.match(email.textContent, /Usuários: Indisponível/);
+  assert.doesNotMatch(email.textContent, /Usuários: 0/);
+});
+test('cabeçalhos ausentes com linhas ou contagem positiva continuam sendo erro', async () => {
+  for (const extra of [{ rowCount: 1 }, { rows: [{ metricValues: [{ value: '4' }] }] }]) {
+    await assert.rejects(
+      readMetrics(
+        '123',
+        'token',
+        '2026-10-29',
+        response({
+          kind: 'analyticsData#runReport',
+          metadata: { timeZone: 'America/Sao_Paulo' },
+          ...extra,
+        }),
+      ),
+      /inesperada/,
+    );
+  }
+});
 test('associa totais pelo nome das colunas, independentemente da ordem', async () => {
   const fetcher = response({
     metadata: { timeZone: 'America/Sao_Paulo' },

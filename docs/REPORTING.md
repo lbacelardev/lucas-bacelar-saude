@@ -56,7 +56,7 @@ Para teste local, colocar os mesmos segredos em `.env.reporting.local` (ignorado
 
 ## Falhas e duplicação
 
-Erros HTTP, autenticação inválida, resposta inesperada ou fuso divergente interrompem o job sem inventar zero visitas. Resposta válida sem eventos retorna zero com limitação explícita no texto.
+Erros HTTP, autenticação inválida, resposta inesperada ou fuso divergente interrompem o job sem inventar zero visitas. Resposta válida com cabeçalhos e sem eventos retorna zero com limitação explícita no texto. Um relatório identificado pela API como analyticsData#runReport, sem cabeçalhos, sem linhas e sem contagem positiva, gera e-mail com métricas indisponíveis. Esse caso não é tratado como zero acessos. Falhas HTTP e respostas inconsistentes continuam interrompendo o envio.
 
 O workflow serializa execuções, guarda um marcador por período no cache do Actions e usa chave de idempotência Brevo (validade de 15 minutos). Cache pode ser removido e o job pode falhar após o aceite: **não há garantia absoluta de envio único**. Em falha ambígua, conferir o painel Brevo antes de repetir. Testes manuais são independentes do marcador diário. Não há retry automático do POST de e-mail. Falhas ficam visíveis no Actions; não foram configurados alertas adicionais.
 

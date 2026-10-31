@@ -76,6 +76,19 @@ export async function readMetrics(property, token, date, fetcher = fetch) {
     throw new Error(`Configure o fuso da propriedade GA4 como ${timezone}.`);
   const expected = ['totalUsers', 'sessions', 'screenPageViews'];
   const names = Array.isArray(data.metricHeaders) ? data.metricHeaders.map((h) => h.name) : [];
+  const noRows = data.rows === undefined || (Array.isArray(data.rows) && data.rows.length === 0);
+  if (
+    data.kind === 'analyticsData#runReport' &&
+    names.length === 0 &&
+    noRows &&
+    (data.rowCount === undefined || data.rowCount === 0)
+  ) {
+    // Relatório reconhecido, mas sem colunas: não há base para afirmar zero acessos.
+    console.log(
+      'GA4 retornou relatório vazio sem colunas. O e-mail indicará métricas indisponíveis.',
+    );
+    return [null, null, null];
+  }
   if (names.length !== expected.length || !expected.every((name) => names.includes(name))) {
     // Somente nomes de colunas para diagnóstico. Nunca registrar o corpo da resposta.
     const diagnostic = names
@@ -104,9 +117,11 @@ export async function readMetrics(property, token, date, fetcher = fetch) {
 }
 
 export function emailBody(date, totals, test = false) {
+  const display = (value) =>
+    value === null ? 'Indisponível — a fonte retornou relatório sem métricas' : value;
   return {
     subject: `${test ? '[TESTE] ' : ''}Lucas Bacelar Saúde — acessos de ${date}`,
-    textContent: `Relatório de acessos — Lucas Bacelar Saúde\n\nPeríodo: ${date}, 00:00–23:59:59 (${timezone}).\nFonte: Google Analytics 4.\n\nUsuários: ${totals[0]}\nSessões: ${totals[1]}\nVisualizações de página: ${totals[2]}\n\nDados provisórios: processamento pode levar 24–48 horas. Medição limitada a visitantes que autorizaram análise, sujeita a bloqueadores e filtros do Google. Zero significa nenhum evento retornado pela fonte, não prova ausência de visitas. Cliques não representam mensagens ou vendas.\n`,
+    textContent: `Relatório de acessos — Lucas Bacelar Saúde\n\nPeríodo: ${date}, 00:00–23:59:59 (${timezone}).\nFonte: Google Analytics 4.\n\nUsuários: ${display(totals[0])}\nSessões: ${display(totals[1])}\nVisualizações de página: ${display(totals[2])}\n\nDados provisórios: processamento pode levar 24–48 horas. Métricas indisponíveis não significam zero acessos; confira a coleta e o período no Analytics. Medição limitada a visitantes que autorizaram análise, sujeita a bloqueadores e filtros do Google. Zero significa nenhum evento retornado pela fonte, não prova ausência de visitas. Cliques não representam mensagens ou vendas.\n`,
   };
 }
 
