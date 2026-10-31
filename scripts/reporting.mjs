@@ -152,9 +152,18 @@ export function emailBody(date, totals, test = false) {
 export async function sendReport(env, date, totals, test = false, fetcher = fetch) {
   const recipient = required(env, 'REPORT_RECIPIENT');
   const sender = required(env, 'REPORT_SENDER');
-  const key = createHash('sha256')
-    .update(`${date}:${recipient}:${test ? 'test:' + (env.GITHUB_RUN_ID || Date.now()) : 'daily'}`)
-    .digest('hex');
+  // UUID v5 determinístico (namespace DNS): 36 caracteres, conforme o contrato Brevo.
+  const bytes = createHash('sha1')
+    .update(Buffer.from('6ba7b8109dad11d180b400c04fd430c8', 'hex'))
+    .update(
+      `lucasbacelarsaude.netlify.app:${date}:${recipient}:${test ? 'test:' + (env.GITHUB_RUN_ID || Date.now()) : 'daily'}`,
+    )
+    .digest()
+    .subarray(0, 16);
+  bytes[6] = (bytes[6] & 0x0f) | 0x50;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = bytes.toString('hex');
+  const key = `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
   const result = await request(
     'https://api.brevo.com/v3/smtp/email',
     {

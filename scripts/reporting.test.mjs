@@ -130,12 +130,21 @@ test('envio exige credenciais e confirmação do provedor', async () => {
   const fetcher = async (_url, options) => {
     const body = JSON.parse(options.body);
     keys.push(body.headers.idempotencyKey);
+    assert.equal(body.headers.idempotencyKey.length, 36);
+    assert.match(
+      body.headers.idempotencyKey,
+      /^[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/,
+    );
     assert.equal(body.to[0].email, 'to@example.com');
     return { ok: true, json: async () => ({ messageId: 'accepted' }) };
   };
   await sendReport(env, '2026-10-29', [1, 2, 3], false, fetcher);
   await sendReport(env, '2026-10-29', [1, 2, 3], false, fetcher);
   assert.equal(keys[0], keys[1]);
+  await sendReport(env, '2026-10-30', [1, 2, 3], false, fetcher);
+  await sendReport({ ...env, GITHUB_RUN_ID: 'test-run' }, '2026-10-29', [1, 2, 3], true, fetcher);
+  assert.notEqual(keys[0], keys[2]);
+  assert.notEqual(keys[0], keys[3]);
 });
 
 test('recusa Brevo inclui motivo e oculta chave e endereços', async () => {
