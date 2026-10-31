@@ -4,7 +4,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowUpRight, Check, Copy, MapPin, Plus, Trash2 } from 'lucide-react';
 import { stateCodes, states } from '../../config/states';
 import { detectLocation } from './location';
-import { buildQuoteMessage, quoteSchema, whatsappUrl } from './quote';
+import {
+  buildQuoteMessage,
+  companyTypeCodes,
+  companyTypeLabels,
+  quoteSchema,
+  whatsappUrl,
+} from './quote';
 import type { Profile, QuoteInput, QuoteValues } from './quote';
 import styles from './QuoteForm.module.css';
 
@@ -128,8 +134,11 @@ export function QuoteForm({ selectedProfile, selectionKey }: Props) {
             aria-describedby={errors.companyType ? 'company-error' : undefined}
           >
             <option value="">Selecione</option>
-            <option value="mei">MEI</option>
-            <option value="cnpj">Outra empresa com CNPJ</option>
+            {companyTypeCodes.map((type) => (
+              <option key={type} value={type}>
+                {companyTypeLabels[type]}
+              </option>
+            ))}
           </select>
           {errors.companyType && (
             <p className={styles.error} id="company-error">

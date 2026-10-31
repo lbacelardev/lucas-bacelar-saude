@@ -48,7 +48,7 @@ flowchart LR
 
 Os testes cobrem regras de idade, perfil empresarial, codificação do destinatário e da mensagem, edição do resumo, remoção de pessoas, falha de cópia, preservação de dados ao trocar perfil e fechamento do menu por teclado.
 
-Testes em jsdom não medem layout, contraste real, foco nativo do diálogo em todos os navegadores ou entrega no WhatsApp. Essas verificações continuam na revisão de navegador. Não há pontuação de Lighthouse ou métricas de conversão declaradas sem medição.
+Testes em jsdom não medem layout. A suíte Playwright complementa essa camada com oito larguras, navegação responsiva, pedido empresarial e foco do diálogo no Chromium. Consulte [a validação](VALIDATION.md). Contraste completo, outros navegadores, aparelhos reais e entrega no WhatsApp não são certificados por essa suíte. Não há pontuação de Lighthouse ou métricas de conversão declaradas sem medição.
 
 ## Evolução prevista
 

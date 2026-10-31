@@ -2,13 +2,21 @@ import { z } from 'zod';
 import { site } from '../../config/site';
 import { stateCodes } from '../../config/states';
 
+export const companyTypeCodes = ['mei', 'caepf', 'cnpj', 'other'] as const;
+export const companyTypeLabels: Record<(typeof companyTypeCodes)[number], string> = {
+  mei: 'MEI',
+  caepf: 'CAEPF',
+  cnpj: 'Outra empresa com CNPJ',
+  other: 'Outros tipos de empresa',
+};
+
 export const quoteSchema = z
   .object({
     name: z.string().trim().min(2, 'Informe seu nome.').max(60, 'Use até 60 caracteres.'),
     city: z.string().trim().min(2, 'Informe sua cidade.').max(80, 'Use até 80 caracteres.'),
     state: z.enum([...stateCodes, '']).refine((value) => value !== '', 'Selecione seu estado.'),
     profile: z.enum(['family', 'business']),
-    companyType: z.enum(['', 'mei', 'cnpj']),
+    companyType: z.enum(['', ...companyTypeCodes]),
     people: z
       .array(
         z.object({
@@ -42,8 +50,8 @@ export function buildQuoteMessage(values: QuoteValues): string {
     `Nome: ${data.name}`,
     `Cidade: ${data.city} / ${data.state}`,
     `Perfil: ${data.profile === 'business' ? 'Empresa / MEI' : 'Pessoa / família'}`,
-    ...(data.profile === 'business'
-      ? [`Empresa: ${data.companyType === 'mei' ? 'MEI' : 'Outra empresa com CNPJ'}`]
+    ...(data.profile === 'business' && data.companyType
+      ? [`Empresa: ${companyTypeLabels[data.companyType]}`]
       : []),
     `Pessoas: ${data.people.length}`,
     `Idades: ${data.people.map(({ age }) => `${Number(age)} ${Number(age) === 1 ? 'ano' : 'anos'}`).join(', ')}`,

@@ -22,7 +22,7 @@
   font-size: 12px;
   padding: 10px 18px;
 }
-.menuButton {
+.headerInner .menuButton {
   display: none;
   border-color: var(--border);
 }
@@ -570,7 +570,7 @@
 .footerBottom > span {
   white-space: nowrap;
 }
-@media (min-width: 701px) {
+@media (min-width: 801px) {
   .mobileNav {
     display: none;
   }
@@ -609,6 +609,16 @@
   }
 }
 @media (max-width: 800px) {
+  .headerInner .headerCta {
+    display: none;
+  }
+  .headerInner .menuButton {
+    display: inline-flex;
+  }
+  .quoteLayout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+  }
   .desktopNav {
     display: none;
   }
@@ -645,14 +655,14 @@
   .headerInner {
     padding-block: 18px;
   }
-  .headerCta {
+  .headerInner .headerCta {
     display: none;
   }
-  .menuButton {
+  .headerInner .menuButton {
     display: inline-flex;
   }
   .hero {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     padding-block: 40px 48px;
     gap: 36px;
   }
@@ -696,7 +706,7 @@
   }
   .orbitOne,
   .orbitTwo {
-    width: 245px;
+    width: min(245px, 100%);
     height: 125px;
   }
   .visualTop {
@@ -709,7 +719,9 @@
     font-size: 25px;
   }
   .locationBadge {
-    right: -7px;
+    right: 12px;
+    top: 38%;
+    max-width: calc(100% - 24px);
   }
   .operatorInner {
     justify-content: start;
@@ -733,7 +745,7 @@
     max-width: none;
   }
   .profileCards {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 16px;
   }
   .profileCard {
@@ -752,7 +764,7 @@
   .about,
   .quoteLayout,
   .faq {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 36px;
   }
   .processIntro {

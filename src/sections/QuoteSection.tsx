@@ -30,8 +30,7 @@ export function QuoteSection({
             Vamos encontrar
             <br />
             um caminho para
-            <br />
-            <em>o seu cuidado?</em>
+            <br /> <em>o seu cuidado?</em>
           </h2>
           <p>
             Prepare seu pedido em poucos passos. Depois, confira o resumo e continue a conversa

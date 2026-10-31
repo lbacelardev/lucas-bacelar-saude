@@ -12,6 +12,16 @@ const valid: QuoteValues = {
 };
 
 describe('regras da solicitação', () => {
+  it.each([
+    ['mei', 'MEI'],
+    ['caepf', 'CAEPF'],
+    ['cnpj', 'Outra empresa com CNPJ'],
+    ['other', 'Outros tipos de empresa'],
+  ] as const)('inclui o tipo empresarial %s no pedido', (companyType, label) => {
+    expect(buildQuoteMessage({ ...valid, profile: 'business', companyType })).toContain(
+      `Empresa: ${label}`,
+    );
+  });
   it('usa a UF do visitante e rejeita estado vazio', () => {
     expect(buildQuoteMessage({ ...valid, city: 'São Paulo', state: 'SP' })).toContain(
       'São Paulo / SP',

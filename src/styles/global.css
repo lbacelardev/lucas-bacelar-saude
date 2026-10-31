@@ -106,6 +106,15 @@
 .container {
   width: min(1160px, calc(100% - 80px));
   margin-inline: auto;
+  min-width: 0;
+}
+/* Allow grid/flex children to shrink to the viewport instead of their text width. */
+.container > * {
+  min-width: 0;
+}
+#root {
+  width: 100%;
+  min-width: 0;
 }
 .section {
   padding-block: 88px;

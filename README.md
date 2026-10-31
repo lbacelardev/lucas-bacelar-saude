@@ -4,7 +4,11 @@ Landing page de consultoria de planos de saúde em todo o Brasil, criada para um
 
 O problema é transformar uma visita em uma conversa útil, reduzindo a necessidade de perguntar novamente nome, cidade e idades no primeiro contato. O visitante preenche, revisa e decide compartilhar o pedido pelo WhatsApp. O formulário orienta o atendimento; consultar uma API de preços está fora do escopo.
 
-**Status:** implementação local. Instagram e WhatsApp comercial configurados. Ainda não publicado. A conferência visual em navegadores e a validação comercial dos produtos são etapas anteriores ao lançamento.
+**Status:** implementação local, ainda não publicada. Instagram e WhatsApp comercial configurados. Responsividade e fluxo principal verificados no Chromium; validação em dispositivos reais e conferência comercial continuam antes do lançamento.
+
+![Página inicial em desktop](docs/images/desktop-top.png)
+
+[Página completa em desktop](docs/images/desktop.png) · [Página completa em mobile](docs/images/mobile.png)
 
 ## Guia para conhecer o projeto
 
@@ -12,6 +16,7 @@ O problema é transformar uma visita em uma conversa útil, reduzindo a necessid
 2. Leia [o case](docs/CASE.md) para entender o problema e o contexto comercial.
 3. Veja [arquitetura e decisões](docs/ARCHITECTURE.md), incluindo as consequências de cada escolha.
 4. Consulte `src/features/quote/quote.ts` para as regras e `QuoteForm.test.tsx` para os testes de interação.
+5. Consulte [as verificações de navegador](docs/VALIDATION.md) para conhecer a cobertura e os limites dos testes.
 
 O projeto demonstra um fluxo completo de frontend, com escopo deliberadamente limitado. Não há números de conversão, desempenho ou acessibilidade apresentados como resultados medidos.
 
@@ -30,16 +35,17 @@ Para conferir sem servidor, execute `npm run build` e depois `node scripts/creat
 
 ## Tecnologias e decisões
 
-| Ferramenta               | Responsabilidade                            |
-| ------------------------ | ------------------------------------------- |
-| React + TypeScript       | Componentes e contratos tipados             |
-| Vite                     | Desenvolvimento e build estático            |
-| CSS Modules              | Estilos locais por componente               |
-| React Hook Form + Zod    | Campos dinâmicos e regras de validação      |
-| Lucide React             | Ícones consistentes e vetoriais             |
-| Vitest + Testing Library | Regras de negócio e interação do formulário |
-| ESLint + Prettier        | Qualidade e formatação do código            |
-| GitHub Actions           | Checks e publicação manual no Pages         |
+| Ferramenta               | Responsabilidade                                    |
+| ------------------------ | --------------------------------------------------- |
+| React + TypeScript       | Componentes e contratos tipados                     |
+| Vite                     | Desenvolvimento e build estático                    |
+| CSS Modules              | Estilos locais por componente                       |
+| React Hook Form + Zod    | Campos dinâmicos e regras de validação              |
+| Lucide React             | Ícones consistentes e vetoriais                     |
+| Vitest + Testing Library | Regras de negócio e interação do formulário         |
+| Playwright               | Responsividade, navegação e fluxo em navegador real |
+| ESLint + Prettier        | Qualidade e formatação do código                    |
+| GitHub Actions           | Checks e publicação manual no Pages                 |
 
 Sem backend: o visitante prepara o pedido no navegador, revisa e decide abrir o WhatsApp. O envio é confirmado no aplicativo. Não há preço automático, contratação, CRM ou persistência de dados. Não são coletados CPF ou informações de saúde.
 
@@ -65,6 +71,17 @@ npm run check       # Lint, testes, TypeScript, build e formatação
 npm run test:watch  # Desenvolvimento dos testes
 npm run preview    # Servir dist/ depois do build
 ```
+
+Para verificar o navegador:
+
+```sh
+npx playwright install chromium --only-shell
+npm run test:e2e
+```
+
+O Playwright inicia o servidor local automaticamente. Em Linux, use `npx playwright install --with-deps chromium --only-shell`. A CI executa os testes unitários e os testes de navegador; o histórico de execução remota existirá após enviar o repositório.
+
+Para atualizar as capturas do README, rode `node scripts/capture-previews.mjs`. O script inicia e encerra seu próprio servidor, usa dados vazios e bloqueia requisições externas.
 
 Os testes verificam idade zero, limites, dados inválidos, perfil empresarial, codificação da mensagem, remoção de pessoas, invalidação do resumo editado, preservação do preenchimento ao trocar o perfil, falha de clipboard e fechamento do menu por teclado. Não substituem testes visuais nem um envio real pelo WhatsApp.
 
@@ -99,4 +116,6 @@ Antes do lançamento: conferir desktop e celular, navegação por teclado, diál
 
 ## Autoria e direitos
 
-Projeto de Lucas Bacelar com assistência de IA. Não há resultados comerciais ou métricas de conversão medidos. Não há licença aberta definida. Marcas de operadoras pertencem aos respectivos titulares; este site apresenta um consultor independente.
+Projeto desenvolvido com uso de inteligência artificial (ChatGPT/Codex), sob orientação e acompanhamento de Lucas Bacelar. Lucas definiu os requisitos e a direção do produto, auditou as entregas e realizou revisões e refatorações conforme necessário. A IA foi utilizada como ferramenta de apoio à implementação, aos testes e à documentação.
+
+Não há resultados comerciais ou métricas de conversão medidos. Não há licença aberta definida. Marcas de operadoras pertencem aos respectivos titulares; este site apresenta um consultor independente.

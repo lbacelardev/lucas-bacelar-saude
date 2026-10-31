@@ -1,4 +1,5 @@
 .form {
+  min-width: 0;
   color: var(--navy);
   background: var(--paper);
   padding: clamp(24px, 4vw, 40px);
@@ -37,7 +38,7 @@
 }
 .profiles {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
 }
 .profiles label {
@@ -82,6 +83,7 @@
 }
 .form input:not([type='radio']),
 .form select {
+  min-width: 0;
   width: 100%;
   padding: 12px 14px;
   background: #fff;
@@ -127,6 +129,7 @@
   font-size: 14px;
 }
 .age {
+  min-width: 0;
   position: relative;
 }
 .age input {

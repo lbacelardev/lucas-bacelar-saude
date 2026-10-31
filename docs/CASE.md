@@ -40,4 +40,8 @@ Depois da revisão visual, adicionar capturas reais. Depois da publicação, adi
 
 Consulte [a arquitetura](ARCHITECTURE.md) para os motivos e as consequências das escolhas técnicas.
 
-Projeto com assistência de IA; a documentação registra a implementação sem atribuir resultados ainda não observados.
+## Processo de desenvolvimento e uso de IA
+
+O projeto utilizou inteligência artificial (ChatGPT/Codex) na implementação, nos testes e na documentação. Lucas Bacelar orientou e acompanhou o desenvolvimento, definiu os requisitos e a direção do produto, auditou as entregas e realizou revisões e refatorações conforme necessário. Essa participação humana faz parte do processo de desenvolvimento e é explicitada na apresentação do projeto.
+
+A documentação descreve o trabalho realizado sem atribuir resultados comerciais ou verificações ainda não observados.
