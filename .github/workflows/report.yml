@@ -19,14 +19,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v7
         with:
           node-version: '24'
       - name: Período do relatório
         id: period
         run: echo "date=$(node scripts/send-report.mjs --date)" >> "$GITHUB_OUTPUT"
-      - uses: actions/cache/restore@v4
+      - uses: actions/cache/restore@v5
         with:
           path: .report-state
           key: daily-report-${{ steps.period.outputs.date }}
@@ -39,7 +39,7 @@ jobs:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
           REPORT_SENDER: ${{ secrets.REPORT_SENDER }}
           REPORT_RECIPIENT: ${{ secrets.REPORT_RECIPIENT }}
-      - uses: actions/cache/save@v4
+      - uses: actions/cache/save@v5
         if: success() && !(github.event_name == 'workflow_dispatch' && inputs.test)
         with:
           path: .report-state
