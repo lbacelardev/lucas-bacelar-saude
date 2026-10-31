@@ -8,6 +8,7 @@ import { Process } from './sections/Process';
 import { About } from './sections/About';
 import { QuoteSection } from './sections/QuoteSection';
 import { FAQ } from './sections/FAQ';
+import { AnalyticsConsent } from './components/AnalyticsConsent';
 import styles from './App.module.css';
 
 export function App() {
@@ -49,6 +50,7 @@ export function App() {
         <FAQ />
       </main>
       <Footer />
+      <AnalyticsConsent />
     </>
   );
 }

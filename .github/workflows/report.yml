@@ -1,0 +1,46 @@
+name: Relatório diário de acessos
+on:
+  schedule:
+    - cron: '0 1 * * *' # 22h do dia anterior em America/Sao_Paulo (UTC-3)
+  workflow_dispatch:
+    inputs:
+      test:
+        description: 'Enviar teste identificado, sem marcar o relatório diário como enviado'
+        type: boolean
+        default: true
+permissions:
+  contents: read
+concurrency:
+  group: daily-report
+  cancel-in-progress: false
+jobs:
+  report:
+    if: vars.REPORTING_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Período do relatório
+        id: period
+        run: echo "date=$(node scripts/send-report.mjs --date)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache/restore@v4
+        with:
+          path: .report-state
+          key: daily-report-${{ steps.period.outputs.date }}
+      - name: Consultar GA4 e enviar por Brevo
+        run: node scripts/send-report.mjs
+        env:
+          REPORT_TEST: ${{ github.event_name == 'workflow_dispatch' && inputs.test && 'true' || 'false' }}
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+          GA4_SERVICE_ACCOUNT_JSON: ${{ secrets.GA4_SERVICE_ACCOUNT_JSON }}
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+          REPORT_SENDER: ${{ secrets.REPORT_SENDER }}
+          REPORT_RECIPIENT: ${{ secrets.REPORT_RECIPIENT }}
+      - uses: actions/cache/save@v4
+        if: success() && !(github.event_name == 'workflow_dispatch' && inputs.test)
+        with:
+          path: .report-state
+          key: daily-report-${{ steps.period.outputs.date }}

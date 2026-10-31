@@ -36,7 +36,7 @@ Sem depoimentos inventados, selos de certificação ou métricas sem evidência.
 
 Os testes locais não comprovam aparência em todos os dispositivos nem entrega de mensagem no WhatsApp. Antes de publicar, revisar a experiência em desktop e celular, confirmar os produtos comercializados e os procedimentos de retenção de dados no atendimento.
 
-Depois da revisão visual, adicionar capturas reais. Depois da publicação, adicionar endereço público, link do repositório e resultados medidos. O formulário contempla todas as UFs e preenchimento opcional de localização. O relatório diário de acessos é um requisito planejado, sem serviço ativo. API de cotação e CRM estão fora do escopo atual.
+Capturas reais já estão no README, e o código está no [GitHub](https://github.com/lbacelardev/lucas-bacelar-saude), com CI aprovada. Lucas conferiu navegação e formulário em desktop e mobile. A próxima etapa é definir a hospedagem e publicar conforme [o roteiro de lançamento](LAUNCH.md); depois, adicionar o endereço público e eventuais resultados medidos. O formulário contempla todas as UFs e preenchimento opcional de localização. O relatório diário de acessos às 22h está implementado com GA4 e Brevo, aguardando configuração e teste real de entrega. API de cotação e CRM estão fora do escopo atual.
 
 Consulte [a arquitetura](ARCHITECTURE.md) para os motivos e as consequências das escolhas técnicas.
 

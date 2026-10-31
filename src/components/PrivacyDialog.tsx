@@ -49,10 +49,19 @@ export function PrivacyDialog() {
         </p>
         <h3>Armazenamento e serviços externos</h3>
         <p>
-          Esta aplicação não possui banco de dados, cookies de marketing, ferramentas de análise ou
-          armazenamento persistente dos campos. Seu navegador pode oferecer preenchimento
-          automático. WhatsApp, Instagram e o provedor de hospedagem processam dados conforme suas
-          próprias políticas, inclusive registros técnicos de acesso.
+          Esta aplicação não possui banco de dados nem armazenamento persistente dos campos. Quando
+          configurado, o Google Analytics só é carregado após você permitir a análise de acessos.
+          Ele usa cookies e dados técnicos para medir usuários, sessões e visualizações. Não
+          enviamos os campos do formulário, coordenadas ou textos de cotação à análise. Você pode
+          recusar ou rever sua escolha em “Preferências de análise”, no final da página. A
+          preferência fica salva neste navegador. Consulte a{' '}
+          <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">
+            política do Google
+          </a>
+          . Os totais agregados podem compor um relatório por e-mail ao responsável pelo site,
+          enviado pelo Brevo. Seu navegador pode oferecer preenchimento automático. WhatsApp,
+          Instagram e o provedor de hospedagem processam dados conforme suas próprias políticas,
+          inclusive registros técnicos de acesso.
         </p>
         <h3>Depois do contato</h3>
         <p>

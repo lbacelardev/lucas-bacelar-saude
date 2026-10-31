@@ -87,7 +87,7 @@ Os testes verificam idade zero, limites, dados inválidos, perfil empresarial, c
 
 ## Relatórios de acessos
 
-O envio diário às 21h está registrado como requisito futuro em [REPORTING.md](docs/REPORTING.md). Não há coleta nem envio ativo nesta versão. O endereço destinatário está em um arquivo local ignorado pelo Git e não entra no bundle do site. A integração depende da publicação, da fonte de métricas e do serviço de e-mail.
+O relatório diário às **22h (America/Sao_Paulo)** está implementado com Google Analytics 4, Brevo e GitHub Actions. Aguarda configuração das contas, credenciais e teste real de entrega para ativação. A análise é opcional e só carrega após permissão. O destinatário e as credenciais ficam em segredos, fora do bundle do site. Consulte [REPORTING.md](docs/REPORTING.md) para configurar e executar o teste identificado por e-mail.
 
 ## Personalização
 
@@ -103,14 +103,11 @@ Edite `src/config/site.ts` para alterar os contatos públicos. Nunca adicione cr
 
 ## GitHub e publicação
 
-O build gera `dist/`, compatível com hospedagem estática. `base: './'` permite hospedagem em uma subpasta, inclusive GitHub Pages. Não há rotas de servidor.
+O código está no [GitHub](https://github.com/lbacelardev/lucas-bacelar-saude), com CI aprovada. O build gera `dist/`, compatível com hospedagem estática. `base: './'` permite hospedagem em uma subpasta. Não há rotas de servidor.
 
-1. Crie o repositório `lucas-bacelar-saude` na conta desejada.
-2. Envie o código e o `package-lock.json`, sem `node_modules` ou `dist`.
-3. Em Settings → Pages, selecione GitHub Actions.
-4. Execute manualmente o workflow “Publicar no GitHub Pages”.
+Para a versão comercial, a hospedagem ainda será escolhida. Consulte [o roteiro de lançamento](docs/LAUNCH.md), com parâmetros de build, pendências e verificações na URL final. GitHub Pages tem restrições de uso comercial e não é o destino indicado para esta landing page de captação.
 
-O workflow de publicação não roda automaticamente em push. O workflow de qualidade roda em push e pull request.
+O workflow manual de Pages existente não foi executado e não deve ser usado no lançamento comercial. O workflow de qualidade roda em push e pull request.
 
 Antes do lançamento: conferir desktop e celular, navegação por teclado, diálogo de privacidade e envio real; confirmar informações comerciais e procedimentos de retenção do atendimento; definir hospedagem e domínio; adicionar URL canônica e imagem social com o endereço final. Consulte [o case](docs/CASE.md).
 

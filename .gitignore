@@ -11,3 +11,4 @@ test-results/
 .DS_Store
 preview.html
 reporting-plan.local.json
+.report-state/

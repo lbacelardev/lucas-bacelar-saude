@@ -1,0 +1,23 @@
+.consent {
+  padding: 20px max(20px, calc((100% - 1120px) / 2));
+  background: var(--cream);
+  color: var(--navy);
+  font-size: 14px;
+}
+.consent p {
+  max-width: 75ch;
+  margin-bottom: 12px;
+}
+.consent div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.consent button {
+  padding: 10px 16px;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
