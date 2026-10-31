@@ -74,14 +74,30 @@ export async function readMetrics(property, token, date, fetcher = fetch) {
   );
   if (data.metadata?.timeZone !== timezone)
     throw new Error(`Configure o fuso da propriedade GA4 como ${timezone}.`);
-  if (
-    !Array.isArray(data.metricHeaders) ||
-    data.metricHeaders.map((h) => h.name).join(',') !== 'totalUsers,sessions,screenPageViews'
-  )
-    throw new Error('Resposta de métricas inesperada.');
+  const expected = ['totalUsers', 'sessions', 'screenPageViews'];
+  const names = Array.isArray(data.metricHeaders) ? data.metricHeaders.map((h) => h.name) : [];
+  if (names.length !== expected.length || !expected.every((name) => names.includes(name))) {
+    // Somente nomes de colunas para diagnóstico. Nunca registrar o corpo da resposta.
+    const diagnostic = names
+      .map((name) =>
+        String(name)
+          .replace(/[^a-zA-Z0-9_:]/g, '')
+          .slice(0, 80),
+      )
+      .join(', ');
+    throw new Error(
+      `Resposta de métricas inesperada. Colunas recebidas: [${diagnostic}]. Esperadas: [${expected.join(', ')}].`,
+    );
+  }
   const values = data.rows?.[0]?.metricValues;
   if (!values && data.rowCount) throw new Error('Resposta sem totais.');
-  const totals = values ? values.map((entry) => Number(entry.value)) : [0, 0, 0];
+  if (values && values.length !== names.length) throw new Error('Quantidade de totais inesperada.');
+  const totals = values
+    ? expected.map((name) => {
+        const raw = values[names.indexOf(name)]?.value;
+        return typeof raw === 'string' && /^\d+$/.test(raw) ? Number(raw) : NaN;
+      })
+    : [0, 0, 0];
   if (totals.length !== 3 || totals.some((n) => !Number.isSafeInteger(n) || n < 0))
     throw new Error('Totais inválidos.');
   return totals;

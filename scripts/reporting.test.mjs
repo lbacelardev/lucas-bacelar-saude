@@ -10,6 +10,27 @@ test('período respeita São Paulo na virada UTC e na virada do ano', () => {
 
 const headers = ['totalUsers', 'sessions', 'screenPageViews'].map((name) => ({ name }));
 const response = (data) => async () => ({ ok: true, json: async () => data });
+test('associa totais pelo nome das colunas, independentemente da ordem', async () => {
+  const fetcher = response({
+    metadata: { timeZone: 'America/Sao_Paulo' },
+    metricHeaders: ['sessions', 'screenPageViews', 'totalUsers'].map((name) => ({ name })),
+    rows: [{ metricValues: [{ value: '7' }, { value: '10' }, { value: '5' }] }],
+  });
+  assert.deepEqual(await readMetrics('123', 'token', '2026-10-29', fetcher), [5, 7, 10]);
+});
+test('diagnóstico de colunas ausentes não transforma resposta incompleta em zero', async () => {
+  await assert.rejects(
+    readMetrics(
+      '123',
+      'token',
+      '2026-10-29',
+      response({
+        metadata: { timeZone: 'America/Sao_Paulo' },
+      }),
+    ),
+    /Colunas recebidas: \[\]/,
+  );
+});
 test('consulta período explícito e interpreta totais', async () => {
   const metrics = await readMetrics('123', 'token', '2026-10-29', async (_url, options) => {
     assert.deepEqual(JSON.parse(options.body).dateRanges, [
