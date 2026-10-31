@@ -21,10 +21,34 @@ export function required(env, key) {
 
 async function request(url, options, fetcher) {
   const response = await fetcher(url, { ...options, signal: AbortSignal.timeout(30000) });
-  if (!response.ok)
-    throw new Error(
-      `Serviço ${new URL(url).hostname}: HTTP ${response.status}. Nenhum total foi presumido.`,
-    );
+  if (!response.ok) {
+    let detail = '';
+    if (new URL(url).hostname === 'api.brevo.com') {
+      try {
+        const error = await response.json();
+        let message = String(error.message || 'Sem descrição.');
+        const payload = JSON.parse(options.body);
+        for (const secret of [
+          options.headers['api-key'],
+          payload.sender?.email,
+          ...payload.to.map((to) => to.email),
+        ]) {
+          if (secret) message = message.split(secret).join('[oculto]');
+        }
+        message = message
+          .replace(/[\w.+-]+@[\w.-]+/g, '[email]')
+          .replace(/[\r\n]/g, ' ')
+          .slice(0, 500);
+        const code = String(error.code || 'unknown')
+          .replace(/[^a-zA-Z0-9_]/g, '')
+          .slice(0, 60);
+        detail = ` Brevo ${code}: ${message}`;
+      } catch {
+        detail = ' Resposta de erro sem JSON legível.';
+      }
+    }
+    throw new Error(`Serviço ${new URL(url).hostname}: HTTP ${response.status}.${detail}`);
+  }
   return response.json();
 }
 

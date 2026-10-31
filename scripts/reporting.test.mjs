@@ -137,3 +137,27 @@ test('envio exige credenciais e confirmação do provedor', async () => {
   await sendReport(env, '2026-10-29', [1, 2, 3], false, fetcher);
   assert.equal(keys[0], keys[1]);
 });
+
+test('recusa Brevo inclui motivo e oculta chave e endereços', async () => {
+  const env = {
+    REPORT_RECIPIENT: 'to@example.com',
+    REPORT_SENDER: 'from@example.com',
+    BREVO_API_KEY: 'private-key',
+  };
+  await assert.rejects(
+    sendReport(env, '2026-10-29', [null, null, null], true, async () => ({
+      ok: false,
+      status: 400,
+      json: async () => ({
+        code: 'invalid_parameter',
+        message: 'Sender from@example.com invalid for to@example.com private-key',
+      }),
+    })),
+    (error) => {
+      assert.match(error.message, /invalid_parameter/);
+      assert.match(error.message, /Sender/);
+      assert.doesNotMatch(error.message, /example.com|private-key/);
+      return true;
+    },
+  );
+});
